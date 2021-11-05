@@ -5,8 +5,8 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "vnet" {
-  source              = "git::git@ssh.dev.azure.com:v3/swonelab/Modulos_Terraform/Modulos_Terraform//vnet?ref=feature/vnet"
-                        # Azure DevOps connection -> git::git@ssh.dev.azure.com:v3/<organization>/<project>/<repositório
+  source              = "git::git@github.com:rezendesfelipe/mvpconf21.git//demo-02/private-module-repository/vnet?ref=feature/main"
+                        # Azure DevOps connection -> git::git@ssh.dev.azure.com:v3/<organization>/<project>.git//path/to/mdule?ref=<tag or branch>
 
 
                         #Font: https://www.terraform.io/docs/language/modules/sources.html#modules-in-package-sub-directories
