@@ -1,0 +1,16 @@
+name: demo-02_pipe
+on: pull request
+jobs:
+  call-a-private-module:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        ref: main
+    - name: Configurar para o repositório correto
+      run: |
+        git config --local --remove-section http."https://github.com/"
+        git config --global url."https://${username}:${GH_TOKEN}@github.com/rezendesfelipe".insteadOf "https://github.com/rezendesfelipe"
+      env:
+        GH_USERNAME: ${{github.actor}}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
