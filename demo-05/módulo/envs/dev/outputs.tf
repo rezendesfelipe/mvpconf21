@@ -1,0 +1,52 @@
+### The Ansible inventory file
+resource "local_file" "AnsibleInventory" {
+  content = templatefile("inventory.tmpl",
+    {
+      backfront-0-id            = "${module.backfront-cluster-0.*.vm_id}",
+      backfront-0-private-ip    = "${module.backfront-cluster-0.*.vm_ip}",
+      core-routine-0-id         = "${module.core-routine-0.*.vm_id}",
+      core-routine-0-private-ip = "${module.core-routine-0.*.vm_ip}",
+      consul-id                 = "${module.consul.*.vm_id}",
+      consul-ip                 = "${module.consul.*.vm_ip}",
+      prometheus-id             = "${module.prometheus.vm_id}",
+      prometheus-ip             = "${module.prometheus.vm_ip}"
+      # backfront-1-id            = "${module.backfront-cluster-1.*.vm_id}",
+      # backfront-1-private-ip    = "${module.backfront-cluster-1.*.vm_ip}",
+      # backfront-2-id            = "${module.backfront-cluster-2.*.vm_id}",
+      # backfront-2-private-ip    = "${module.backfront-cluster-2.*.vm_ip}",
+      # backfront-3-id            = "${module.backfront-cluster-3.*.vm_id}",
+      # backfront-3-private-ip    = "${module.backfront-cluster-3.*.vm_ip}",
+      # backfront-4-id            = "${module.backfront-cluster-4.*.vm_id}",
+      # backfront-4-private-ip    = "${module.backfront-cluster-4.*.vm_ip}",
+      # backfront-5-id            = "${module.backfront-cluster-5.*.vm_id}",
+      # backfront-5-private-ip    = "${module.backfront-cluster-5.*.vm_ip}",
+      # backfront-6-id            = "${module.backfront-cluster-6.*.vm_id}",
+      # backfront-6-private-ip    = "${module.backfront-cluster-6.*.vm_ip}",
+      # backfront-7-id            = "${module.backfront-cluster-7.*.vm_id}",
+      # backfront-7-private-ip    = "${module.backfront-cluster-7.*.vm_ip}",
+      # backfront-8-id            = "${module.backfront-cluster-8.*.vm_id}",
+      # backfront-8-private-ip    = "${module.backfront-cluster-8.*.vm_ip}",
+      # backfront-9-id            = "${module.backfront-cluster-9.*.vm_id}",
+      # backfront-9-private-ip    = "${module.backfront-cluster-9.*.vm_ip}",
+      # core-routine-1-id         = "${module.core-routine-1.*.vm_id}",
+      # core-routine-1-private-ip = "${module.core-routine-1.*.vm_ip}",
+      # core-routine-2-id         = "${module.core-routine-2.*.vm_id}",
+      # core-routine-2-private-ip = "${module.core-routine-2.*.vm_ip}",
+      # core-routine-3-id         = "${module.core-routine-3.*.vm_id}",
+      # core-routine-3-private-ip = "${module.core-routine-3.*.vm_ip}",
+      # core-routine-4-id         = "${module.core-routine-4.*.vm_id}",
+      # core-routine-4-private-ip = "${module.core-routine-4.*.vm_ip}",
+      # core-routine-5-id         = "${module.core-routine-5.*.vm_id}",
+      # core-routine-5-private-ip = "${module.core-routine-5.*.vm_ip}",
+      # core-routine-6-id         = "${module.core-routine-6.*.vm_id}",
+      # core-routine-6-private-ip = "${module.core-routine-6.*.vm_ip}",
+      # core-routine-7-id         = "${module.core-routine-7.*.vm_id}",
+      # core-routine-7-private-ip = "${module.core-routine-7.*.vm_ip}",
+      # core-routine-8-id         = "${module.core-routine-8.*.vm_id}",
+      # core-routine-8-private-ip = "${module.core-routine-8.*.vm_ip}",
+      # core-routine-9-id         = "${module.core-routine-9.*.vm_id}",
+      # core-routine-9-private-ip = "${module.core-routine-9.*.vm_ip}"
+    }
+  )
+  filename = "inventory"
+}
