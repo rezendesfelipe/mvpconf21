@@ -1,0 +1,8 @@
+# Variaveis definidas por ambiente
+
+variables:
+  - name: azureServiceConnectionName
+    value: ccs-dev-001
+
+  - name: azurePipelineEnvironment
+    value: DEV-AzDO-Environment

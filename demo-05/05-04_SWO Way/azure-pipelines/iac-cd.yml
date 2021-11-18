@@ -1,0 +1,11 @@
+trigger: none
+
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - template: templates/stage.cd.environment.yml
+    parameters:
+      environment: DEV

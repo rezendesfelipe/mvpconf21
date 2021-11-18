@@ -1,0 +1,22 @@
+# Variaveis gerais
+
+variables:
+  - name: vmImageName
+    value: "ubuntu-latest"
+  - name: terraformVersion
+    value: 1.0.6
+  - name: azureSubscriptionServiceConnectionName
+    value: "ccs-dev-001"
+  - name: tfStateResourceGroupName
+    value: "rg-local-lab"
+  - name: tfStateAzureStorageAccountSku
+    value: "Standard_LRS"
+  - name: tfStateAzureStorageAccountName
+    value: "sacloudserviceslab001"
+  - name: tfStateContainerName
+    value: "terraform-state"
+  - name: ciArtifactName
+    value: artifactName
+  - name: iacCiPipelineName
+    value: infra-lab-001-ci
+  - group: DEV

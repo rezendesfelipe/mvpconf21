@@ -1,0 +1,44 @@
+parameters:
+  - name: terraformArtifactName
+    type: string
+  - name: iacCiPipelineName
+    type: string
+  - name: terraformVersion
+    type: string
+  - name: serviceConnection
+    type: string
+  - name: resourceGroupTerraformState
+    type: string
+  - name: storageAccountTerraformState
+    type: string
+  - name: containerTerraformState
+    type: string
+
+steps:
+  - task: DownloadBuildArtifacts@0
+    displayName: "Download artifact ${{ parameters.terraformArtifactName }} from CI pipeline ${{ parameters.iacCiPipelineName }} "
+    inputs:
+      buildType: specific
+      project: $(System.TeamProject)
+      pipeline: ${{ parameters.iacCiPipelineName }}
+      specificBuildWithTriggering: true
+      buildVersionToDownload: latest
+      artifactName: ${{ parameters.terraformArtifactName }}
+  - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+    displayName: "Use Terraform $(terraformVersion)"
+    inputs:
+      terraformVersion: $(terraformVersion)
+  - task: TerraformTaskV2@2
+    displayName: "Terraform Init"
+    inputs:
+      provider: "azurerm"
+      command: "init"
+      ensureBackend: true
+      workingDirectory: "$(System.ArtifactsDirectory)/${{ parameters.terraformArtifactName }}"
+      backendServiceArm: $(azureSubscriptionServiceConnectionName)
+      backendAzureRmResourceGroupLocation: $(location)
+      backendAzureRmResourceGroupName: $(tfStateResourceGroupName)
+      backendAzureRmStorageAccountName: $(tfStateAzureStorageAccountName)
+      backendAzureRmStorageAccountSku: $(tfStateAzureStorageAccountSku)
+      backendAzureRmContainerName: $(tfStateContainerName)
+      backendAzureRmKey: "terraform.tfstate"

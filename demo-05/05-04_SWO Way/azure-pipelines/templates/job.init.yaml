@@ -1,0 +1,71 @@
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - ./modules/*
+# This pipeline uses variables and secrets defined in the Azure DevOps portal (see: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#secret-variables)
+# location: the Azure region where to deploy
+# tenantId: the identifier of the Azure tenant
+# environmentName: the name of the environment to deploy
+# kubernetesVersion: the Kubernetes version to deploy
+# aksServicePrincipalClientId: the service principal identifier to use with AKS
+# aksServicePrincipalClientSecret: the service principal secret to use with AKS
+# sshKeySecureFileName: a secure file that contains the SSH private key to use
+# sshPublicKey: the SSH public key to use
+# sshKnownHostsEntry: the SSH known hosts entry
+
+parameters:
+  - name: "terraformArtifactName"
+    displayName: "Nome do artefato do terraform"
+    default: "drop"
+    type: string
+
+stages:
+  - stage: validateInfrastructure
+    displayName: Validate all Infrastructure
+    variables:
+      - template: iac-variables.yml
+      - group: DEV
+
+    jobs:
+      # Common Module
+      - job: General
+        displayName: "Initialize and check"
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: TerraformInstaller@0
+            displayName: "Use Terraform $(terraformVersion)"
+            inputs:
+              terraformVersion: $(terraformVersion)
+          
+          - task: TerraformCLI@0
+            displayName: 'Test Code Format'
+            inputs:
+              command: fmt
+              commandOptions: -check
+
+          - task: TerraformCLI@0
+            displayName: 'Terraform Init'
+            inputs:
+              command: 'init'
+              backendType: 'azurerm'
+              backendServiceArm: 'ccs-dev-001'
+              backendAzureRmResourceGroupName: '$(tfStateResourceGroupName)'
+              backendAzureRmResourceGroupLocation: '$(location)'
+              backendAzureRmStorageAccountName: '$(tfStateAzureStorageAccountName)'
+              backendAzureRmStorageAccountSku: '$(tfStateAzureStorageAccountSku)'
+              backendAzureRmContainerName: '$(tfStateContainerName)'
+              backendAzureRmKey: 'terraform.tfstate'
+              allowTelemetryCollection: false
+               
+          - task: TerraformCLI@0
+            displayName: 'Terraform plan'
+            inputs:
+              command: 'plan'
+              environmentServiceName: 'ccs-dev-001'
+              commandOptions: '-input=false -var-file="./environments/$(env).tfvars"'
+              allowTelemetryCollection: true
+              publishPlanResults: 'plan'
