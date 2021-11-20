@@ -1,0 +1,35 @@
+trigger:
+  branches:
+    include:
+    - development
+    exclude:
+    - /*
+  paths:  
+    exclude:
+    - docs/*
+    - documents/*
+    - .devcontainer/*
+    - terraform/bootstrap/*
+    - terraform/templates/*
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+
+  - stage: CI
+    displayName: Continuous Integration
+    jobs: 
+    - job: CIvalidation
+    variables:
+    - group: -mvpconf21-vars
+  - template: stages/stages-ci.yml
+
+
+  - stage: CD
+    condition: succeeded() 
+    displayName: Continuous Deployment
+    jobs: 
+    - job: "CD"
+    variables:
+    - group: -mvpconf21-vars
+  - template: stages/stages-cd.yml

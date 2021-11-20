@@ -11,28 +11,26 @@ variable "nsg_name" {
 }
 
 variable "tags" {
-  type = map(any)
-  default = {
-    env         = "dev"
-    suite       = "application1"
-    provisioner = "terraform"
-  }
+  type        = map(any)
+  default     = {}
+  description = "Mapa de tags usadas para o recurso."
 }
 
 variable "location" {
   description = "Localização da região do Azure."
   # No default - Se não for especificado irá utilizar o do resource Group
   type    = string
-  default = ""
+  default = "eastus2"
 }
 
 # Security Rules definition 
 
 variable "rules" {
-  description = "Security rules for the network security group using this format name = [priority, direction, access, protocol, source_port_range, destination_port_range, source_address_prefix, destination_address_prefix, description]"
+  description = "Regras de segurança para o NSG usando este formato = [`priority`, `direction`, `access`, `protocol`, `source_port_range`, `destination_port_range`, `source_address_prefix`/`source_address_prefix`, `destination_address_prefix`/`destination_address_prefixes`, `description`]"
   type        = any
   default     = []
 }
+
 # source address prefix to be applied to all predefined rules
 # list(string) only allowed one element (CIDR, `*`, source IP range or Tags)
 # Example ["10.0.3.0/24"] or ["VirtualNetwork"]

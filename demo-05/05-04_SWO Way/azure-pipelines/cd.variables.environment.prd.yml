@@ -1,8 +1,0 @@
-# lista de variaveis definida por ambiente
-
-variables:
-  - name: azureServiceConnectionName
-    value: ccs-prd-001
-
-  - name: azurePipelineEnvironment
-    value: PROD-AzDO-Environment

@@ -76,11 +76,11 @@ module "nsg" {
   location            = module.rg.rg_location
   nsg_name            = "nsg-testing"
   tags = {
-    suite = "impulse/commerce"
-    produto = "search/platform/commerce/hub"
+    suite = "mvpconf21/application1"
+    produto = "mvpconf21/app1/application1/hub"
     env = "dev/stg/hlg/prd"
     provisioner = "terraform"
-    team = "cloud/search/wishlist"
+    team = "cloud/mvpconf21/application"
 }
   rules = [
     {

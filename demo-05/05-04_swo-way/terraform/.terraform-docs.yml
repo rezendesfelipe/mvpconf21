@@ -1,0 +1,77 @@
+header-from: main.tf
+
+formatter: "markdown table"
+
+sort:
+  enabled: true
+  by: required
+
+content: |
+  # Ambiente de Desenvolvimento - MVP Conf LATAM 2021
+  ## Dev Container
+
+  Para saber mais sobre essa feature acesse o link [VsCode Dev Container](https://code.visualstudio.com/docs/remote/create-dev-container)
+
+  Este repositório possui uma definição de DevContainer permitindo uma mesma experiência para a ferramentas de denvolvimento utilizadas:
+  - Terraform `[1.0.10]`
+  - TFLint `[0.33.1]`
+  - AZ Cli `[latest]`
+  - Terraform-docs `[0.16.0]`
+
+  > Nota: O uso do Dev Container não é mandatório
+
+  Extensão:
+
+  Caso deseja utilizar é necessário ter a seguinte extensão instalada no Visual Studio Code, além de possuir o [**Docker**](https://docs.docker.com/get-docker/). 
+
+  [Remote Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+
+  # Por onde começar
+  Para a construção do ambiente usamos o Azure DevOps.
+
+  Se você deseja criar em seu próprio ambiente de desenvolvimento, preparamos um conjunto de comandos usando `Makefile` para facilitar os comandos.
+
+  # Principais comandos
+
+  ## Como criar todo o ambiente
+  ``` shell
+  ENV=dev make create-environment
+  ```
+
+  > Nota: é obrigatório criar uma variável local antes de criar o ambiente. Você pode usar os valores **dev** ou **prd**.
+
+  ## Como testar formatação e sintaxe do código
+  ``` shell
+  make validate-code
+  ```
+
+  # Informações necessárias sobre o ambiente do Terraform
+
+  {{ .Providers }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  ## Deseja contribuir?
+
+  Para contruibuir com este repositório você deve instalar o [**Terraform-docs**](https://terraform-docs.io/user-guide/installation/).
+  Etapas: 
+    * Clone este repositório;
+    * Crie uma branch;
+    * Realize todas as modificações que deseja;
+    * Faça o commit e crie uma tag (v1.1.0, v1.2.3, etc);
+    * Documente o código usando `make all`;
+    * Faça o push da sua branch seguido de um Pull Request.
+  
+  <sub>Para dúvidas mande um contato: [carlos.oliveira@softwareone.com](mailto:carlos.oliveira@softwareone.com)</sub>
+
+settings:
+  color: true
+  default: true
+  description: true
+  sensitive: true
+  type: true

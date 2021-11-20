@@ -1,12 +1,12 @@
 # Módulo de Azure VM-Linux
 ## Variáveis válidas (Globais)
 Este módulo aceita as seguintes variáveis
-* [Obrigatório] `resource_group_name`: Nome do Resource Group a ser utilizado. O padrão é fazer uso do resource group de sua vertical (Ex: Impulse)
+* [Obrigatório] `resource_group_name`: Nome do Resource Group a ser utilizado. O padrão é fazer uso do resource group de sua vertical (Ex: mvpconf21)
 * [Obrigatório] `location`: Localidade onde a VM será criada. O valor padrão é `eastus2`.
 * [Opcional] `tags`: Quais tags serão utilizados. Normalmente ele já irá puxar no momento em que o módulo for chamado.
 
 ## Variáveis válidas (NIC)
-* [Obrigatório] `resource_group_name`: Nome do Resource Group a ser utilizado. O padrão é fazer uso do resource group de sua vertical (Ex: Impulse)
+* [Obrigatório] `resource_group_name`: Nome do Resource Group a ser utilizado. O padrão é fazer uso do resource group de sua vertical (Ex: mvpconf21)
 
 Um exemplo de como pode ser realizado:
 ``` Go
@@ -31,7 +31,7 @@ Exemplo de uso com estes blocos:
 ``` HCL
   vnet_resource_group_name = data.terraform_remote_state.shared.outputs.shared_rg_name
   vnet_name                = data.terraform_remote_state.shared.outputs.vnet_name
-  subnet_name              = "subnet-mail-mgmt"
+  subnet_name              = "subnet-app2-mgmt"
 ```
 
 ## Variáveis válidas (VM)
@@ -74,7 +74,7 @@ Terraform will perform the following actions:
   + resource "azurerm_resource_group" "rg" {
       + id       = (known after apply)
       + location = "eastus2"
-      + name     = "rg-impulse-datacollection-dev"
+      + name     = "rg-mvpconf21-datacollection-dev"
     }
 
   # module.vm-linux.data.azurerm_resource_group.vm-linux will be read during apply
@@ -82,7 +82,7 @@ Terraform will perform the following actions:
  <= data "azurerm_resource_group" "vm-linux"  {
       + id       = (known after apply)
       + location = (known after apply)
-      + name     = "rg-impulse-datacollection-dev"
+      + name     = "rg-mvpconf21-datacollection-dev"
       + tags     = (known after apply)
 
       + timeouts {
@@ -102,14 +102,14 @@ Terraform will perform the following actions:
       + max_bid_price                   = -1
       + name                            = "vm-dev-store-bemol"
       + network_interface_ids           = (known after apply)
-      + platform_fault_domain           = -1
+      + app1_fault_domain           = -1
       + priority                        = "Regular"
       + private_ip_address              = (known after apply)
       + private_ip_addresses            = (known after apply)
       + provision_vm_agent              = true
       + public_ip_address               = (known after apply)
       + public_ip_addresses             = (known after apply)
-      + resource_group_name             = "rg-impulse-datacollection-dev"
+      + resource_group_name             = "rg-mvpconf21-datacollection-dev"
       + size                            = "Standard B2ms"
       + virtual_machine_id              = (known after apply)
       + zone                            = (known after apply)
@@ -151,7 +151,7 @@ Terraform will perform the following actions:
       + name                          = "vm-dev-store-bemol-nic"
       + private_ip_address            = (known after apply)
       + private_ip_addresses          = (known after apply)
-      + resource_group_name           = "rg-impulse-datacollection-dev"
+      + resource_group_name           = "rg-mvpconf21-datacollection-dev"
       + virtual_machine_id            = (known after apply)
 
       + ip_configuration {

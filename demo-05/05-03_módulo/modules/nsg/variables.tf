@@ -14,7 +14,7 @@ variable "tags" {
   type = map(any)
   default       = {
     env         = "dev"
-    suite       = "commerce"
+    suite       = "application1"
     provisioner = "terraform"
   }
 }
