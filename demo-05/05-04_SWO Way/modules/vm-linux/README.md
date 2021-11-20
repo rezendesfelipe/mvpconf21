@@ -102,7 +102,7 @@ module "vm" {
   location            = "eastus"
   public_key          = "ssh-rsa"
   tags = {
-    role        = "backfront-cluster"
+    role        = "mvpconf21-cluster"
     team        = "search"
     suite       = "impulse"
     product     = "search"
