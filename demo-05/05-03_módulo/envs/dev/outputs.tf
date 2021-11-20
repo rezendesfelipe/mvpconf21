@@ -1,0 +1,52 @@
+### The Ansible inventory file
+resource "local_file" "AnsibleInventory" {
+  content = templatefile("inventory.tmpl",
+    {
+      mvpconf21-0-id            = "${module.mvpconf21-cluster-0.*.vm_id}",
+      mvpconf21-0-private-ip    = "${module.mvpconf21-cluster-0.*.vm_ip}",
+      mvpconf21-0-id         = "${module.mvpconf21-0.*.vm_id}",
+      mvpconf21-0-private-ip = "${module.mvpconf21-0.*.vm_ip}",
+      consul-id                 = "${module.consul.*.vm_id}",
+      consul-ip                 = "${module.consul.*.vm_ip}",
+      prometheus-id             = "${module.prometheus.vm_id}",
+      prometheus-ip             = "${module.prometheus.vm_ip}"
+      # mvpconf21-1-id            = "${module.mvpconf21-cluster-1.*.vm_id}",
+      # mvpconf21-1-private-ip    = "${module.mvpconf21-cluster-1.*.vm_ip}",
+      # mvpconf21-2-id            = "${module.mvpconf21-cluster-2.*.vm_id}",
+      # mvpconf21-2-private-ip    = "${module.mvpconf21-cluster-2.*.vm_ip}",
+      # mvpconf21-3-id            = "${module.mvpconf21-cluster-3.*.vm_id}",
+      # mvpconf21-3-private-ip    = "${module.mvpconf21-cluster-3.*.vm_ip}",
+      # mvpconf21-4-id            = "${module.mvpconf21-cluster-4.*.vm_id}",
+      # mvpconf21-4-private-ip    = "${module.mvpconf21-cluster-4.*.vm_ip}",
+      # mvpconf21-5-id            = "${module.mvpconf21-cluster-5.*.vm_id}",
+      # mvpconf21-5-private-ip    = "${module.mvpconf21-cluster-5.*.vm_ip}",
+      # mvpconf21-6-id            = "${module.mvpconf21-cluster-6.*.vm_id}",
+      # mvpconf21-6-private-ip    = "${module.mvpconf21-cluster-6.*.vm_ip}",
+      # mvpconf21-7-id            = "${module.mvpconf21-cluster-7.*.vm_id}",
+      # mvpconf21-7-private-ip    = "${module.mvpconf21-cluster-7.*.vm_ip}",
+      # mvpconf21-8-id            = "${module.mvpconf21-cluster-8.*.vm_id}",
+      # mvpconf21-8-private-ip    = "${module.mvpconf21-cluster-8.*.vm_ip}",
+      # mvpconf21-9-id            = "${module.mvpconf21-cluster-9.*.vm_id}",
+      # mvpconf21-9-private-ip    = "${module.mvpconf21-cluster-9.*.vm_ip}",
+      # mvpconf21-1-id         = "${module.mvpconf21-1.*.vm_id}",
+      # mvpconf21-1-private-ip = "${module.mvpconf21-1.*.vm_ip}",
+      # mvpconf21-2-id         = "${module.mvpconf21-2.*.vm_id}",
+      # mvpconf21-2-private-ip = "${module.mvpconf21-2.*.vm_ip}",
+      # mvpconf21-3-id         = "${module.mvpconf21-3.*.vm_id}",
+      # mvpconf21-3-private-ip = "${module.mvpconf21-3.*.vm_ip}",
+      # mvpconf21-4-id         = "${module.mvpconf21-4.*.vm_id}",
+      # mvpconf21-4-private-ip = "${module.mvpconf21-4.*.vm_ip}",
+      # mvpconf21-5-id         = "${module.mvpconf21-5.*.vm_id}",
+      # mvpconf21-5-private-ip = "${module.mvpconf21-5.*.vm_ip}",
+      # mvpconf21-6-id         = "${module.mvpconf21-6.*.vm_id}",
+      # mvpconf21-6-private-ip = "${module.mvpconf21-6.*.vm_ip}",
+      # mvpconf21-7-id         = "${module.mvpconf21-7.*.vm_id}",
+      # mvpconf21-7-private-ip = "${module.mvpconf21-7.*.vm_ip}",
+      # mvpconf21-8-id         = "${module.mvpconf21-8.*.vm_id}",
+      # mvpconf21-8-private-ip = "${module.mvpconf21-8.*.vm_ip}",
+      # mvpconf21-9-id         = "${module.mvpconf21-9.*.vm_id}",
+      # mvpconf21-9-private-ip = "${module.mvpconf21-9.*.vm_ip}"
+    }
+  )
+  filename = "inventory"
+}

@@ -1,0 +1,108 @@
+header-from: main.tf
+
+formatter: "markdown table"
+
+sort:
+  enabled: true
+  by: required
+
+content: |
+  # Módulo Network Security Group
+
+  Este módulo apresenta as entradas aceitas bem como as saídas que ele produz.
+
+  {{ .Header }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  > Nota sobre como criar regras de NSG:
+  ``` Go
+  [...]
+    rules = [
+        {
+            name = "nome da regra" 
+            // Campo obrigatório
+            priority = 100 
+            // número EXCLUSIVO entre 0 a 65535
+            // Campo obrigatório
+            direction = "Inbound" 
+            // Aceita 'Inbound' ou 'Outbound'. Default é 'Inbound'
+            access = "Allow" 
+            // 'Allow' ou 'Deny'. Default é 'Allow'
+            protocol = "TCP" 
+            // TCP, UDP, ICMP ou '*'. Padrão é '*'
+            source_port_range = "*" 
+            // número entre 0 e 65535 ou '*'. Padrão é '*'
+            destination_port_range = "3389,443,5000-5015" 
+            // número entre 0 e 65535 ou '*' aceita múltiplos valores quando se usa string separadas por vírgula.
+            // Padrão é '0-65535'
+            source_address_prefixes = ["10.0.1.0/24","10.2.0.0/23"] 
+            // Inserir endereço(s) de Origem. 
+            // NÃO Aceita Service Tags. 
+            // NÃO USE COM source_address_prefix
+            destination_address_prefixes = ["10.0.1.0/24","10.2.0.0/23"] 
+            // Inserir endereço(s) de destino.
+            // NÃO Aceita Service Tags
+            // NÃO USE COM destination_address_prefix
+            source_address_prefix = "10.0.1.0/24" 
+            // Inserir endereço(s) de Origem. 
+            // Aceita Service Tags. 
+            // NÃO USE COM source_address_prefixes
+            destination_address_prefix = "10.2.0.0/23"
+            // Inserir endereço(s) de destino. 
+            // Aceita Service Tags
+            // NÃO USE COM destination_address_prefixes
+            description = "Descrição da Regra" 
+            // Caso não haja qualquer informação será inserido automaticamente"
+            source_application_security_group_ids = "subscriptions/****/ASGs/Id" 
+            // Id do Application Security Group de Origem
+            // NÃO PODE ser usado junto com source_address_prefix ou source_address_prefixes
+            destination_application_security_group_ids = "subscriptions/****/ASGs/Id" 
+            // Id do Application Security Group de Origem
+            // NÃO PODE ser usado junto com destination_address_prefix ou destination_address_prefixes
+        }
+    ]
+  ```
+
+  ## Exemplo no terraform 1.x
+  ### NSG Simples
+
+  ``` Go
+  {{ include "./examples/nsg-simple/main.tf" }}
+  ```
+
+  ### NSG com outros módulos
+
+  ``` Go
+  {{ include "./examples/nsg-with-other-modules/main.tf" }}
+  ```
+
+  ### NSG com Service Tags
+
+  ``` Go
+  {{ include "./examples/nsg-with-service-tags/main.tf" }}
+  ```
+  
+  ## Deseja contribuir?
+
+  Para contruibuir com este repositório você deve instalar o [**Terraform-docs**](https://terraform-docs.io/user-guide/installation/).
+  Etapas: 
+    * Clone este repositório;
+    * Crie uma branch;
+    * Realize todas as modificações que deseja;
+    * Faça o commit e crie uma tag (v1.1.0, v1.2.3, etc);
+    * Documente o código usando `make all`;
+    * Faça o push da sua branch seguido de um Pull Request.
+  
+  <sub>Para dúvidas mande um contato: [carlos.oliveira@softwareone.com](mailto:carlos.oliveira@softwareone.com)</sub>
+
+settings:
+  color: true
+  default: true
+  description: true
+  sensitive: true
+  type: true

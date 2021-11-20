@@ -1,0 +1,60 @@
+stages:        
+- stage: CDStage
+  variables:
+    - group: -mvpconf21-vars
+  displayName: Continuous Deployment
+  jobs:
+      
+  - job: Authentication
+    displayName: Inicialização Terraform
+    steps:
+      - bash: |
+          export ARM_CLIENT_ID=$ARM_CLIENT_ID
+          export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
+          export ARM_TENANT_ID=$ARM_TENANT_ID
+          export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
+          az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET -t $ARM_TENANT_ID
+        env:
+          ARM_CLIENT_ID:                $(ARM-CLIENT-ID)
+          ARM_CLIENT_SECRET:            $(ARM-CLIENT-SECRET)
+          ARM_TENANT_ID:                $(ARM-TENANT-ID)
+          TF_BACKEND_STORAGE_ACCOUNT:   $(TF-BACKEND-STORAGE-ACCOUNT)
+          ARM_SUBSCRIPTION_ID:          $(ARM-SUBSCRIPTION-ID)
+          TF_BACKEND_RESOURCE_GROUP:    $(TF-BACKEND-RESOURCE-GROUP)
+          TF_BACKEND_CONTAINER:         $(TF-BACKEND-CONTAINER)
+          TF_BACKEND_KEY:               $(TF-BACKEND-KEY)
+          TF_ACCESS_KEY:                $(TF-ACCESS-KEY)
+          TF_STATE_BLOB_SAS_TOKEN:      $(TF-STATE-BLOB-SAS-TOKEN)
+  - job: Terraform_Apply
+    displayName: Terraform Deployment
+    steps:
+      - bash: |
+          cd terraform/stacks/mvpconf21
+          az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET -t $ARM_TENANT_ID
+          terraform init -reconfigure \
+            -backend-config="resource_group_name=$TF_BACKEND_RESOURCE_GROUP" \
+            -backend-config="subscription_id=$ARM_SUBSCRIPTION_ID" \
+            -backend-config="storage_account_name=$TF_BACKEND_STORAGE_ACCOUNT" \
+            -backend-config="container_name=$TF_BACKEND_CONTAINER" \
+            -backend-config="key=$TF_BACKEND_KEY" \
+            -backend-config="access_key=$TF_ACCESS_KEY"
+          terraform apply -var-file=../env/dev.tfvars
+        displayName: Finalizando a Validação
+        env:
+          ARM_CLIENT_ID:                $(ARM-CLIENT-ID)
+          ARM_CLIENT_SECRET:            $(ARM-CLIENT-SECRET)
+          ARM_TENANT_ID:                $(ARM-TENANT-ID)
+          TF_BACKEND_STORAGE_ACCOUNT:   $(TF-BACKEND-STORAGE-ACCOUNT)
+          ARM_SUBSCRIPTION_ID:          $(ARM-SUBSCRIPTION-ID)
+          TF_BACKEND_RESOURCE_GROUP:    $(TF-BACKEND-RESOURCE-GROUP)
+          TF_BACKEND_CONTAINER:         $(TF-BACKEND-CONTAINER)
+          TF_BACKEND_KEY:               $(TF-BACKEND-KEY)
+          TF_ACCESS_KEY:                $(TF-ACCESS-KEY)
+          TF_STATE_BLOB_SAS_TOKEN:      $(TF-STATE-BLOB-SAS-TOKEN)
+      # - task: TerraformCLI@0
+      #   inputs:
+      #     command: 'apply'
+      #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/stacks/dev'
+      #     environmentServiceName: 'sc-kv-vars-mvpconf'
+      #     commandOptions: '-var-file=../../env/dev.tfvars -var psql-login=$(login-psg-dev) -var psql-passwd=$(passwd-psg-dev)'
+      #     allowTelemetryCollection: true
