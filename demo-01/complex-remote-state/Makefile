@@ -101,7 +101,7 @@ prepare-tfvars:
 	@echo "#########################"
 	@echo "...Done 🏁"
 
-first-setup: az-login create-sp create-rg create-st create-container create-kv acesso-kv create-access-all-vars terraform-init
+first-setup: create-sp create-rg create-st create-container create-kv acesso-kv create-access-all-vars terraform-init
 
 prepare-keyvault: az-login create-access-all-vars terraform-init
 
