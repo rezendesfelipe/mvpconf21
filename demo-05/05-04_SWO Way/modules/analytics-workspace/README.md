@@ -33,7 +33,7 @@ module "vm" {
   location            = "eastus"
   public_key          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDREE9sVnJdt5fyCG7SMtgw91Q5FUzuAWhyPXO+zTlgFf4NhnB9yvzwXFiGsVSxBPzw1NInqcpt4sPnv9j/PavvsaDPNhxmNpJEbjyB1+MoKUVmcDF4m2LkCU50OWH3QiWl8hrdvwMAj7mupheJ/w300J7GCp7mZRTkVUCSSN6G+WplfcngkD7WvOY6HW8DlyD+b48PWg9fUIfx1vd5LAUwAPrgkdcL4msDbuYHASN7Q+VoCNrRTHZ5dBCGAuBXJ9/Ki/Tvke+MlsdAQMR8C/Jm6ATOnsdyt2lLUNiCoZsZGzxBq2pe63K0HpNJCFsRpwwAf0Gn15YbxIocsGeIkzkiah2QTewmaTc6RnDYwo8PQWe/geRFII/WcY8rSLEN/J3FGBJYUqGYN4CmvLNoLavgTainyPr6oWs2ANlaviBo1v0rOsEfgoXrSDg6Cux/xg8TBuaX/YCzkvYkPtyypEhMvJCKKl/K+5vvqC9BQxQ3cquH0HsY8FNcYx21+VZm6p9i5PuACPwMo68Mxxgy214i0iQHTcbdeU2Zi2JXV0TzDgTokL62mWYWNqEfrvF7onyTUICOZ+XI1TXtVzpRUOqzvHyk4WGUiKpb9nrTOGHB9pFLoE++kKKXZv2fwVC5ZrOP6lOQCsKxKdmnO21OnHyA/QpbwBARF3OcoaWUeP4kQ== azureuser"
   tags = {
-    role        = "backfront-cluster"
+    role        = "mvpconf21-cluster"
     team        = "search"
     suite       = "impulse"
     product     = "search"

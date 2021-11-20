@@ -128,7 +128,7 @@ Terraform will perform the following actions:
           - "sn-search-appgw",
           - "sn-search-data",
           - "sn-search-mgmt",
-          - "sn-search-backfront",
+          - "sn-search-mvpconf21",
           - "sn-search-aks",
         ] -> (known after apply)
       ~ vnet_peerings       = {} -> (known after apply)
